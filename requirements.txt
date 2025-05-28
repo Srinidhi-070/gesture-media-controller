@@ -1,0 +1,18 @@
+# UI framework
+PyQt5>=5.15.9
+
+# Computer Vision & ML
+opencv-python>=4.8.0
+mediapipe>=0.10.0
+
+# Media Control
+pyautogui>=0.9.53
+
+# Audio & Volume Control (Windows-specific)
+pycaw>=20210315
+
+# Logging and runtime utils
+psutil>=5.9.5
+
+# Optional performance booster (faster array ops)
+numpy>=1.26.0

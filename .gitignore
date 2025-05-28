@@ -1,0 +1,75 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+env/
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs and editor settings
+.vscode/
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Python packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Logs and local config
+*.log
+*.env
+.env
+*.ini
+*.cfg
+
+# Media files (optional if you're testing with them)
+*.mp4
+*.avi
+*.mov
+*.webm
+*.gif
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Windows/PyCache noise
+AppData/
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Others
+*.sqlite3
+*.bak
+*.swp
