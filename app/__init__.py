@@ -8,7 +8,7 @@ An AI-powered gesture recognition system for controlling media using hand signs.
 import logging
 
 __version__ = "1.0.0"
-__author__ = "Your Name"
+__author__ = "Srinidhi N S"
 __appname__ = "Gesture Media Controller"
 
 
