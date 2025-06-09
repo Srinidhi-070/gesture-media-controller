@@ -1,6 +1,8 @@
 # app/media_controller.py
 import platform
 import logging
+import pyautogui
+import time
 
 if platform.system() == "Windows":
     from ctypes import cast, POINTER
@@ -42,3 +44,63 @@ class VolumeController:
         current = self.volume.GetMasterVolumeLevelScalar()
         new_volume = max(current - step, 0.0)
         self.set_volume(new_volume)
+
+class MediaPlayerController:
+    """Controls media playback using system media keys via pyautogui"""
+    
+    def __init__(self):
+        self.is_playing = False
+        logging.info("Media Player Controller initialized")
+    
+    def play(self):
+        """Simulates media play key press"""
+        try:
+            logging.info("Play command sent")
+            pyautogui.press('playpause')
+            self.is_playing = True
+            return True
+        except Exception as e:
+            logging.error(f"Failed to send play command: {e}")
+            return False
+    
+    def pause(self):
+        """Simulates media pause key press"""
+        try:
+            logging.info("Pause command sent")
+            pyautogui.press('playpause')
+            self.is_playing = False
+            return True
+        except Exception as e:
+            logging.error(f"Failed to send pause command: {e}")
+            return False
+    
+    def toggle_play_pause(self):
+        """Toggles between play and pause"""
+        try:
+            logging.info("Play/Pause toggle command sent")
+            pyautogui.press('playpause')
+            self.is_playing = not self.is_playing
+            return True
+        except Exception as e:
+            logging.error(f"Failed to send play/pause toggle command: {e}")
+            return False
+    
+    def next_track(self):
+        """Simulates media next track key press"""
+        try:
+            logging.info("Next track command sent")
+            pyautogui.press('nexttrack')
+            return True
+        except Exception as e:
+            logging.error(f"Failed to send next track command: {e}")
+            return False
+    
+    def previous_track(self):
+        """Simulates media previous track key press"""
+        try:
+            logging.info("Previous track command sent")
+            pyautogui.press('prevtrack')
+            return True
+        except Exception as e:
+            logging.error(f"Failed to send previous track command: {e}")
+            return False

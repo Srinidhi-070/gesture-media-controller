@@ -19,7 +19,7 @@ from app.config import (
     RTSP_URL,
     RTSP_TRANSPORT
 )
-from app.media_controller import VolumeController
+from app.media_controller import VolumeController, MediaPlayerController
 
 def detect_cameras():
     """Detect available cameras and return a list of working camera indices"""
@@ -72,6 +72,14 @@ class GestureRecognizer(QObject):
         except Exception as e:
             logging.warning(f"Volume controller initialization failed: {e}")
             self.has_volume_control = False
+            
+        # Initialize media player controller
+        try:
+            self.media_controller = MediaPlayerController()
+            self.has_media_control = True
+        except Exception as e:
+            logging.warning(f"Media player controller initialization failed: {e}")
+            self.has_media_control = False
 
     def _initialize_video_source(self):
         """Initialize video source (camera or video file)"""
@@ -227,11 +235,32 @@ class GestureRecognizer(QObject):
         # Get action from config if available, otherwise use None
         gesture_action = GESTURE_ACTIONS.get(finger_count)
         
-        # Log the gesture action without performing any media control
+        # Execute the corresponding media control action
         if gesture_action:
             logging.info(f"Gesture recognized: {gesture_action}")
             self.last_action_time = now
             self.prev_gesture = gesture_action
+            
+            # Perform the actual media control action
+            if gesture_action == "volume_up" and self.has_volume_control:
+                self.volume_controller.volume_up(VOLUME_STEP)
+                logging.info(f"Volume increased to {self.volume_controller.volume.GetMasterVolumeLevelScalar() * 100:.0f}%")
+            elif gesture_action == "volume_down" and self.has_volume_control:
+                self.volume_controller.volume_down(VOLUME_STEP)
+                logging.info(f"Volume decreased to {self.volume_controller.volume.GetMasterVolumeLevelScalar() * 100:.0f}%")
+            elif gesture_action == "play" and self.has_media_control:
+                logging.info("Play action triggered")
+                self.media_controller.play()
+            elif gesture_action == "pause" and self.has_media_control:
+                logging.info("Pause action triggered")
+                self.media_controller.pause()
+            elif gesture_action == "next" and self.has_media_control:
+                logging.info("Next track action triggered")
+                self.media_controller.next_track()
+            elif gesture_action == "previous" and self.has_media_control:
+                logging.info("Previous track action triggered")
+                self.media_controller.previous_track()
+            
             # Emit signal for UI update
             self.gesture_detected.emit(gesture_action, finger_count)
 
